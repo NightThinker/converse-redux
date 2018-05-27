@@ -11,12 +11,6 @@ class Persons extends Component {
     }
 
 
-    personDeletedHandler = (personId) => {
-        this.setState( ( prevState ) => {
-            return { persons: prevState.persons.filter(person => person.id !== personId)}
-        } );
-    }
-
     render () {
         return (
             <div>
@@ -26,7 +20,7 @@ class Persons extends Component {
                         key={person.id}
                         name={person.name} 
                         age={person.age} 
-                        clicked={() => this.personDeletedHandler(person.id)}/>
+                        clicked={() => this.props.onRemovePerson(person.id)}/>
                 ))}
             </div>
         );
@@ -34,7 +28,6 @@ class Persons extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state: ', state);
     return {
         prs: state.persons
     }
@@ -42,7 +35,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddPerson: () => dispatch({type: actionType.ADD_PERSON})
+        onAddPerson: () => dispatch({type: actionType.ADD_PERSON}),
+        onRemovePerson: (id) => dispatch({type: actionType.REMOVE_PERSON, personId: id})
     };
 };
 

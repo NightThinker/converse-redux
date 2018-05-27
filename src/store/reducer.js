@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log('action.type: ', action.type);
   switch (action.type) {
     case actionType.ADD_PERSON:
       const newPerson = {
@@ -17,10 +16,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         persons: state.persons.concat( newPerson )
       };
+    case actionType.REMOVE_PERSON:
+      return { 
+        ...state,
+        persons: state.persons.filter(person => person.id !== action.personId)
+      };
       
     default:
       break;
-  
   }
 
   return  state;
